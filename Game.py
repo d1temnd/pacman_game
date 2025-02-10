@@ -1,16 +1,15 @@
-from typing import Union
+from typing import List, Dict, Tuple, Union
 
 import pygame
 from pygame import Surface
 from pygame.surface import SurfaceType
 
-from Direction import Direction
-from Food import Food
 from GameSettings import GameSettings
 from Ghost import Ghost
 from Pacman import Pacman
 from Wall import Wall
-
+from Food import Food
+from Direction import Direction
 
 class Game:
     """
@@ -24,17 +23,17 @@ class Game:
     pacman: Union[None, Pacman]
         Объект пакмена.
         Равен None до момента парсинга, который происходит в момент создания игры.
-    food: list[Food]
+    food: List[Food]
         Список объектов еды.
-    coordinates_food: dict[tuple[int, int], Food]
+    coordinates_food: Dict[Tuple[int, int], Food]
         Словарь для быстрого обращения к еде.
         Ключ - кортеж координат еды.
         Значение - объект еды по этим координатам.
-    ghosts: list[Ghost]
+    ghosts: List[Ghost]
         Список призраков.
-    walls: list[Wall]
+    walls: List[Wall]
         Список стен.
-    coordinates_walls: dict[tuple[int, int], Wall]
+    coordinates_walls: Dict[Tuple[int, int], Wall]
         Словарь для быстрого обращения к стенам.
         Ключ - кортеж координат стены.
         Значение - объект стен по этим координатам.
@@ -62,11 +61,11 @@ class Game:
     game_settings: GameSettings
     screen: Union[Surface, SurfaceType]
     pacman: Union[None, Pacman]
-    food: list[Food]
-    coordinates_food: dict[tuple[int, int], Food]
-    ghosts: list[Ghost]
-    walls: list[Wall]
-    coordinates_walls: dict[tuple[int, int], Wall]
+    food: List[Food]
+    coordinates_food: Dict[Tuple[int, int], Food]
+    ghosts: List[Ghost]
+    walls: List[Wall]
+    coordinates_walls: Dict[Tuple[int, int], Wall]
     ticks: int
 
     def __init__(self):
@@ -134,6 +133,8 @@ class Game:
                     self.pacman.move()
                 else:
                     self.pacman.direction = Direction.none
+                for ghost in self.ghosts:
+                    ghost.move_towards_pacman(self.pacman)
             self.eat_food()
             if self.is_win():
                 # TODO: написать сообщение о победе

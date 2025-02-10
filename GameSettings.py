@@ -1,3 +1,5 @@
+from typing import List
+
 class GameSettings:
     """
     Класс для описания основных констант игры
@@ -12,7 +14,7 @@ class GameSettings:
     """
     WINDOW_WIDTH: int
     WINDOW_HEIGHT: int
-    MAP_CONFIGURATION: list[str]
+    MAP_CONFIGURATION: List[str]
 
     def __init__(self):
         self.WINDOW_WIDTH = 720
@@ -35,3 +37,4 @@ class GameSettings:
                                   "888088808808880888",
                                   "888080008800080888",
                                   "888888888888888888"]
+        
